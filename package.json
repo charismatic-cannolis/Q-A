@@ -1,0 +1,20 @@
+{
+  "name": "QA",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mongoschema.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charismatic-cannolis/Q-A.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charismatic-cannolis/Q-A/issues"
+  },
+  "homepage": "https://github.com/charismatic-cannolis/Q-A#readme"
+}
