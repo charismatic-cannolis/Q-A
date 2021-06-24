@@ -55,3 +55,7 @@ COPY "photos"("id", "answer_id", "url")
 FROM '/Users/chhuong/Documents/HRSFO135/QA/answers_photos.csv'
 DELIMITER ','
 CSV HEADER;
+
+ALTER TABLE "questions" ALTER COLUMN "date_written" TYPE TIMESTAMP USING to_timestamp("date_written"/1000);
+
+ALTER TABLE "answers" ALTER COLUMN "date_written" TYPE TIMESTAMP USING to_timestamp("date_written"/1000);
