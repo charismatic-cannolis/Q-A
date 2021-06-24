@@ -6,35 +6,52 @@ DROP TABLE IF EXISTS
   "questions", "answers", "photos";
 
 CREATE TABLE "questions" (
-  "question_id" SERIAL,
-  "product_id" integer NOT NULL,
-  "body" text NOT NULL,
-  "date" date,
-  "asker_name" text,
-  "helpfulness" integer,
-  "reported" bytea,
-  PRIMARY KEY("question_id")
+  "id" SERIAL,
+  "product_id" INTEGER NOT NULL,
+  "body" TEXT NOT NULL,
+  "date_written" BIGINT,
+  "asker_name" TEXT,
+  "asker_email" TEXT,
+  "helpful" SMALLINT DEFAULT 0,
+  "reported" BOOLEAN DEFAULT false,
+  PRIMARY KEY("id")
 );
 
 CREATE TABLE "answers" (
-  "answer_id" SERIAL,
-  "page" integer,
-  "count" integer,
-  "date" date,
+  "id" SERIAL,
+  "question_id" integer NOT NULL,
   "body" text NOT NULL,
+  "date_written" BIGINT,
   "answerer_name" text NOT NULL,
-  "helpfulness" integer,
-  "id_questions" integer NOT NULL,
-  PRIMARY KEY("answer_id")
+  "answerer_email" text NOT NULL,
+  "helpful" SMALLINT DEFAULT 0,
+  "reported" BOOLEAN DEFAULT false,
+  PRIMARY KEY("id")
 );
 
 CREATE TABLE "photos" (
-  "photo_id" SERIAL,
-  "photo_url" text,
-  "id_answers" integer NOT NULL,
-  PRIMARY KEY("photo_id")
+  "id" SERIAL,
+  "answer_id" integer NOT NULL,
+  "url" varchar(2048),
+  PRIMARY KEY("id")
 );
 
-ALTER TABLE "answers" ADD FOREIGN KEY ("id_questions") REFERENCES "questions" ("question_id");
 
-ALTER TABLE "photos" ADD FOREIGN KEY ("id_answers") REFERENCES "answers" ("answer_id");
+ALTER TABLE "answers" ADD FOREIGN KEY ("question_id") REFERENCES "questions" ("id");
+
+ALTER TABLE "photos" ADD FOREIGN KEY ("answer_id") REFERENCES "answers" ("id");
+
+COPY "questions"("id", "product_id", "body", "date_written", "asker_name", "asker_email", "reported", "helpful")
+FROM '/Users/chhuong/Documents/HRSFO135/QA/questions.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY "answers"("id", "question_id", "body", "date_written", "answerer_name", "answerer_email", "reported", "helpful")
+FROM '/Users/chhuong/Documents/HRSFO135/QA/answers.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY "photos"("id", "answer_id", "url")
+FROM '/Users/chhuong/Documents/HRSFO135/QA/answers_photos.csv'
+DELIMITER ','
+CSV HEADER;
