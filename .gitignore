@@ -105,3 +105,9 @@ dist
 
 # CSV File
 *.csv
+
+# Config
+config.js
+
+#package-lock
+package-lock.json

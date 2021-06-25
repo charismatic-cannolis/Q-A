@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS
 CREATE TABLE "questions" (
   "id" SERIAL,
   "product_id" INTEGER NOT NULL,
-  "body" TEXT NOT NULL,
+  "body" VARCHAR(1000),
   "date_written" BIGINT,
   "asker_name" TEXT,
   "asker_email" TEXT,
@@ -20,10 +20,10 @@ CREATE TABLE "questions" (
 CREATE TABLE "answers" (
   "id" SERIAL,
   "question_id" integer NOT NULL,
-  "body" text NOT NULL,
+  "body" VARCHAR(1000),
   "date_written" BIGINT,
-  "answerer_name" text NOT NULL,
-  "answerer_email" text NOT NULL,
+  "answerer_name" TEXT NOT NULL,
+  "answerer_email" TEXT NOT NULL,
   "helpful" SMALLINT DEFAULT 0,
   "reported" BOOLEAN DEFAULT false,
   PRIMARY KEY("id")
@@ -32,7 +32,7 @@ CREATE TABLE "answers" (
 CREATE TABLE "photos" (
   "id" SERIAL,
   "answer_id" integer NOT NULL,
-  "url" varchar(2048),
+  "url" VARCHAR(2048),
   PRIMARY KEY("id")
 );
 
