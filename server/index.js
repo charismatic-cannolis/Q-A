@@ -8,7 +8,7 @@ const router = require('./routers/routes.js');
 
 const app = express();
 app.use(bodyParser.json());
-app.use('/qa/questions', router);
+app.use('/qa/', router);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

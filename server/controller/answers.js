@@ -20,5 +20,27 @@ module.exports = {
       .catch(err => {
         res.status(500).send(err);
       })
+  },
+
+  helpful: (req, res) => {
+    const answer_id = req.params.answer_id;
+    models.helpful(answer_id)
+      .then(data => {
+        res.status(202).send(data);
+      })
+      .catch(err => {
+        res.status(204).send(err);
+      });
+  },
+
+  report: (req, res) => {
+    const answer_id = req.params.answer_id;
+    models.report(answer_id)
+      .then(date => {
+        res.status(202).send(data);
+      })
+      .catch(err => {
+        res.status(204).send(err);
+      })
   }
 }

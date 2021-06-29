@@ -4,7 +4,7 @@ module.exports = {
   // TO DO: re-write this, not getting the correct data
   // TO DO: if reported is true, do not show on get
   getQuestion: (product_id, page, count) => {
-    var queryString = 'SELECT questions.id, product_id, questions.body, questions.date_written, asker_name, asker_email, questions.helpful, questions.reported, answers.id, answers.body, answers.date_written, answerer_name, answers.helpful FROM questions FULL OUTER JOIN answers on questions.id=answers.question_id  WHERE product_id=$1 LIMIT $2;';
+    var queryString = "SELECT questions.product_id, questions.body, questions.date_written, questions.asker_name, questions.asker_email, questions.helpful, questions.reported, json_agg(json_build_object ('question_id', answers.question_id, 'body', answers.body, 'date', answers.date_written, 'answerer_name', answers.answerer_name, 'answerer_email', answers.answerer_email, 'helpful', answers.helpful, 'reported', answers.reported)) AS answers FROM answers INNER JOIN questions ON answers.question_id = questions.id WHERE product_id=$1 and questions.reported=false GROUP BY questions.id LIMIT $2;";
 
     return db.pool.query(queryString, [product_id, count])
       .then(data => {
@@ -30,7 +30,7 @@ module.exports = {
 
   // Post question to db
   postQuestion: (product_id, body, asker_email, asker_name) => {
-    var queryString = `INSERT INTO questions (product_id, body, date_written, asker_name, asker_email) VALUES (${product_id}, '${body}', CURRENT_TIMESTAMP, '${asker_name}', '${asker_email}');`;
+    var queryString = `INSERT INTO questions (product_id, body, date_written, asker_name, asker_email) VALUES (${product_id}, '${body}', CURRENT_TIMESTAMP(0), '${asker_name}', '${asker_email}');`;
 
     return db.pool.query(queryString)
       .then((data) => {

@@ -11,5 +11,29 @@ module.exports = {
       .catch((err) => {
         console.log('Error: ', err);
       })
+  },
+
+  helpful: (answer_id) => {
+    const queryString = `UPDATE answers set helpful = helpful +1 WHERE id = ${answer_id};`
+
+    return db.pool.query(queryString)
+      .then(data => {
+        return data;
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+      });
+  },
+
+  report: (answer_id) => {
+    const queryString = `UPDATE answers set reported = 'true' WHERE id = ${answer_id};`
+
+    return db.pool.query(queryString)
+      .then(data => {
+        return data;
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+      })
   }
 }
