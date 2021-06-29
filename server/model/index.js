@@ -38,7 +38,7 @@ module.exports = {
       });
   },
 
-  helpful: (question_id) => {
+  questionHelpful: (question_id) => {
     var queryString = `UPDATE questions set helpful = helpful +1 WHERE id = ${question_id};`;
 
     return db.pool.query(queryString)
@@ -48,5 +48,17 @@ module.exports = {
       .catch((err) => {
         console.log('Error: ', err);
       });
+  },
+
+  questionReport: (question_id) => {
+    var queryString = `UPDATE questions set reported = 'true' WHERE id = ${question_id};`
+
+    return db.pool.query(queryString)
+    .then(data => {
+      return data;
+    })
+    .catch((err) => {
+      console.log('Error: ', err);
+    });
   }
 }

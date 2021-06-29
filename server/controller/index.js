@@ -46,7 +46,7 @@ module.exports = {
   // Increment helpfulness
   questionHelpful: (req,res) => {
     const question_id = req.params.question_id;
-    models.helpful(question_id)
+    models.questionHelpful(question_id)
       .then(data => {
         res.status(202).send(data);
       })
@@ -56,6 +56,13 @@ module.exports = {
   },
 
   questionReport: (req, res) => {
-
+    const question_id = req.params.question_id;
+    models.questionReport(question_id)
+      .then(data => {
+        res.status(202).send(data);
+      })
+      .catch(err => {
+        res.status(204).send(err);
+      })
   }
 }
