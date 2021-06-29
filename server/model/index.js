@@ -36,5 +36,17 @@ module.exports = {
       .catch((err) => {
         console.log('Error: ', err);
       });
+  },
+
+  helpful: (question_id) => {
+    var queryString = `UPDATE questions set helpful = helpful +1 WHERE id = ${question_id};`;
+
+    return db.pool.query(queryString)
+      .then(data => {
+        return data;
+      })
+      .catch((err) => {
+        console.log('Error: ', err);
+      });
   }
 }

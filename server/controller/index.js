@@ -1,6 +1,7 @@
 const models = require('../model/index.js');
 
 module.exports = {
+  // Get a all reveiws for a single product
   getProductQuestions: (req, res) => {
     const productId = req.params.product_id;
     let page = req.query.page;
@@ -18,10 +19,13 @@ module.exports = {
       })
       .catch(err => res.status(500).send(err));
   },
+  // Get all the reviews
   getQuestions: (req, res) => {
     models.getAllQuestions();
     res.end();
   },
+
+  // Post a question to a product given a product id
   postQuestion:(req, res) => {
     const body = req.body.body;
     const asker_name = req.body.asker_name;
@@ -32,5 +36,26 @@ module.exports = {
         res.status(201).send(data);
       })
       .catch(err => res.status(500).send(err));
+  },
+
+  // Post an answer given a question_id
+  postAnswer: (req, res) => {
+
+  },
+
+  // Increment helpfulness
+  questionHelpful: (req,res) => {
+    const question_id = req.params.question_id;
+    models.helpful(question_id)
+      .then(data => {
+        res.status(202).send(data);
+      })
+      .catch(err => {
+        res.status(204).send(err);
+      })
+  },
+
+  questionReport: (req, res) => {
+
   }
 }
