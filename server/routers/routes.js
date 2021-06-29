@@ -1,17 +1,18 @@
 const router = require('express').Router();
-const controller = require('../controller/index.js');
+const question = require('../controller/questions.js');
+const answer = require('../controller/answers.js');
 
 
-router.get('/:product_id', controller.getProductQuestions);
-router.get('/', controller.getQuestions);
+router.get('/:product_id', question.getQuestion);
+router.get('/', question.getAll);
 // router.get('answers/*', controller.getAnwers);
-router.post('/:product_id', controller.postQuestion);
+router.post('/:product_id', question.postQuestion);
 
 //Patch request for question helpfulness and reported
-router.patch('/:question_id/helpful', controller.questionHelpful);
-router.patch('/:question_id/report', controller.questionReport);
+router.patch('/:question_id/helpful', question.helpful);
+router.patch('/:question_id/report', question.report);
 
 // Answer routes
-router.post('/:question_id/answers', controller.postAnswer);
+router.get('/:question_id/answers', answer.getAnswers);
 
 module.exports = router;

@@ -1,8 +1,8 @@
-const models = require('../model/index.js');
+const models = require('../model/questions.js');
 
 module.exports = {
   // Get a all reveiws for a single product
-  getProductQuestions: (req, res) => {
+  getQuestion: (req, res) => {
     const productId = req.params.product_id;
     let page = req.query.page;
     let count = req.query.count;
@@ -13,15 +13,15 @@ module.exports = {
     if (count === undefined) {
       count = 5;
     }
-    models.getAllProductQuestions(productId, page, count)
+    models.getQuestion(productId, page, count)
       .then(data => {
         res.status(200).send(data);
       })
       .catch(err => res.status(500).send(err));
   },
   // Get all the reviews
-  getQuestions: (req, res) => {
-    models.getAllQuestions();
+  getAll: (req, res) => {
+    models.getAll();
     res.end();
   },
 
@@ -38,15 +38,10 @@ module.exports = {
       .catch(err => res.status(500).send(err));
   },
 
-  // Post an answer given a question_id
-  postAnswer: (req, res) => {
-
-  },
-
   // Increment helpfulness
-  questionHelpful: (req,res) => {
+  helpful: (req,res) => {
     const question_id = req.params.question_id;
-    models.questionHelpful(question_id)
+    models.updateHelpful(question_id)
       .then(data => {
         res.status(202).send(data);
       })
@@ -55,9 +50,9 @@ module.exports = {
       })
   },
 
-  questionReport: (req, res) => {
+  report: (req, res) => {
     const question_id = req.params.question_id;
-    models.questionReport(question_id)
+    models.updateReport(question_id)
       .then(data => {
         res.status(202).send(data);
       })
