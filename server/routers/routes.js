@@ -9,14 +9,14 @@ router.get('', question.getAll);
 router.post('/questions/:product_id', question.postQuestion);
 
 //Patch request for question helpfulness and reported
-router.patch('/questions/:question_id/helpful', question.helpful);
-router.patch('/questions/:question_id/report', question.report);
+router.put('/questions/:question_id/helpful', question.helpful);
+router.put('/questions/:question_id/report', question.report);
 
 // Answer get request
 router.get('/questions/:question_id/answers', answer.getAnswers);
 
 // Answers patch requests for helpfulness and reported
-router.patch('/answers/:answer_id/helpful', answer.helpful);
-router.patch('/answers/:answer_id/report', answer.report);
+router.put('/answers/:answer_id/helpful', answer.helpful);
+router.put('/answers/:answer_id/report', answer.report);
 
 module.exports = router;

@@ -27,7 +27,7 @@ module.exports = {
             'url', photos.url
           )
         ) FILTER (WHERE photos.answer_id IS NOT NULL), '[]')
-        FROM photos WHERE photos.answer_id = answers.id)
+        FROM photos WHERE photos.answer_id = answers.id AND answers.reported=false)
       )
     ) FILTER (WHERE answers.id IS NOT NULL), '[]') AS answers FROM answers
     RIGHT JOIN questions ON answers.question_id = questions.id
@@ -71,7 +71,7 @@ module.exports = {
 
   // Increment the helpful column by one
   updateHelpful: (question_id) => {
-    var queryString = `UPDATE questions set helpful = helpful +1 WHERE id = ${question_id};`;
+    var queryString = `UPDATE questions set helpful = helpful+1 WHERE id = ${question_id};`;
 
     return db.pool.query(queryString)
       .then(data => {

@@ -14,8 +14,12 @@ module.exports = {
       count = 5;
     }
     models.getQuestion(productId, page, count)
-      .then(data => {
-        res.status(200).send(data);
+      .then((data) => {
+        const backData = {
+          "product_id": productId,
+          "result": data
+        }
+        res.status(200).send(backData);
       })
       .catch(err => res.status(500).send(err));
   },

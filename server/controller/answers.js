@@ -15,7 +15,13 @@ module.exports = {
 
     models.getAnswers(question_id, page, count)
       .then(data => {
-        res.status(200).send(data);
+        const formattedData = {
+          "question": question_id,
+          "page": page,
+          "count": count,
+          "result": data
+        }
+        res.status(200).send(formattedData);
       })
       .catch(err => {
         res.status(500).send(err);
