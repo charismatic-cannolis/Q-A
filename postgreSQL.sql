@@ -36,11 +36,7 @@ CREATE TABLE "photos" (
   PRIMARY KEY("id")
 );
 
-
-ALTER TABLE "answers" ADD FOREIGN KEY ("question_id") REFERENCES "questions" ("id");
-
-ALTER TABLE "photos" ADD FOREIGN KEY ("answer_id") REFERENCES "answers" ("id");
-
+-- Load data into tables
 COPY "questions"("id", "product_id", "body", "date_written", "asker_name", "asker_email", "reported", "helpful")
 FROM '/Users/chhuong/Documents/HRSFO135/QA/questions.csv'
 DELIMITER ','
@@ -56,6 +52,19 @@ FROM '/Users/chhuong/Documents/HRSFO135/QA/answers_photos.csv'
 DELIMITER ','
 CSV HEADER;
 
+-- Update data from epoch unix to time stamp
 ALTER TABLE "questions" ALTER COLUMN "date_written" TYPE TIMESTAMP USING to_timestamp("date_written"/1000);
 
 ALTER TABLE "answers" ALTER COLUMN "date_written" TYPE TIMESTAMP USING to_timestamp("date_written"/1000);
+
+-- Add foreign keys
+ALTER TABLE "answers" ADD FOREIGN KEY ("question_id") REFERENCES "questions" ("id");
+
+ALTER TABLE "photos" ADD FOREIGN KEY ("answer_id") REFERENCES "answers" ("id");
+
+-- Indexes
+CREATE INDEX "product_idx" on "questions" ("product_id");
+CREATE INDEX "question_idx" on "answers" ("question_id");
+CREATE INDEX "answer_idx" on "photos" ("answer_id");
+
+
