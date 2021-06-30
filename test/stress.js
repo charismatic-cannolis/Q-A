@@ -39,7 +39,7 @@ export default function () {
     let getAnswer = http.get(`http://localhost:1010/qa/questions/${product_id}/answers`);
     check (getAnswer, {
       'is status 200': (r) => r.status === 200,
-      'is duration < 250ms': (r) => r.times.duration < 250,
+      'is duration < 250ms': (r) => r.timings.duration < 250,
     })
     sleep(1);
   })
