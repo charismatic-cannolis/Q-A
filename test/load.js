@@ -13,8 +13,6 @@ export let options = {
   },
 };
 
-const SLEEP_DURATION = 1;
-
 export default function () {
   group('app startup', () => {
     const max = 1000000;
@@ -26,6 +24,13 @@ export default function () {
       'is status 200': (r) => r.status === 200,
       'is duration < 250 ms': (r) => r.timings.duration < 250,
     })
-    sleep(SLEEP_DURATION);
+    sleep(1);
+
+    let getAnswer = http.get(`http://localhost:1010/qa/questions/${product_id}/answers`);
+    check(getAnswer, {
+      'is status 200': (r) => r.status === 200,
+      'is duration < 250ms': (r) => r.times.duration < 250,
+    })
+    sleep(1);
   })
 }

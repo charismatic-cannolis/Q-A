@@ -42,6 +42,5 @@ export default function () {
       'is duration < 250ms': (r) => r.times.duration < 250,
     })
     sleep(1);
-  });
-  sleep(1);
+  })
 }
