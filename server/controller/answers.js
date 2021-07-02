@@ -28,6 +28,17 @@ module.exports = {
       })
   },
 
+  postAnswer: (req, res) => {
+    const question_id = req.params.question_id;
+    models.postAnswer(question_id)
+      .then(data => {
+        res.status(201).send(data)
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      })
+  },
+
   helpful: (req, res) => {
     const answer_id = req.params.answer_id;
     models.helpful(answer_id)

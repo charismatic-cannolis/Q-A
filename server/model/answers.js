@@ -24,6 +24,10 @@ module.exports = {
       })
   },
 
+  postAnswer: (question_id) => {
+    const queryString = `INSERT INTO answers ;`;
+  },
+
   helpful: (answer_id) => {
     const queryString = `UPDATE answers set helpful = helpful+1 WHERE id = ${answer_id};`
 
